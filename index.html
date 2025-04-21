@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Drawer</title>
+    <style>
+        /* Basic Reset & Body Styling */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            /* Using a common, clean system font stack for professional look */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            background-color: #f8f9fa; /* Light grey background */
+            color: #212529; /* Dark text for contrast */
+            line-height: 1.5;
+        }
+
+        /* App Drawer Container - Centers the grid */
+        .app-drawer {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align grid to the top */
+            padding: 25px 15px; /* Padding around the grid */
+            min-height: 100%;
+        }
+
+        /* Grid Container - The core layout */
+        .grid-container {
+            display: grid;
+            /* Creates 4 equal-width columns */
+            grid-template-columns: repeat(4, 1fr);
+            /* Defines spacing between grid items: row-gap column-gap */
+            gap: 25px 15px;
+            width: 100%;
+            max-width: 500px; /* Limits width on larger screens for better appearance */
+            height: fit-content; /* Grid height adjusts to content */
+        }
+
+        /* Individual App Item Styling */
+        .app-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* App Link Styling */
+        .app-item a {
+            text-decoration: none;
+            color: inherit; /* Use body text color */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Smooth transition for hover effect */
+            transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+            border-radius: 12px; /* Match icon radius for focus/hover area */
+            padding: 5px; /* Add padding for hover effect */
+        }
+
+        .app-item a:hover,
+        .app-item a:focus {
+            transform: translateY(-4px); /* Lift effect on hover/focus */
+            /* Optional: Add a subtle shadow on hover */
+            /* box-shadow: 0 4px 8px rgba(0,0,0,0.1); */
+            outline: none; /* Remove default focus outline if desired */
+        }
+
+        /* Icon Placeholder Styling */
+        .icon-placeholder {
+            width: 64px; /* Icon size */
+            height: 64px;
+            border-radius: 16px; /* Rounded corners like many modern icons */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 26px; /* Size of the text/initials */
+            font-weight: 500; /* Medium weight text */
+            color: #ffffff; /* White text on icons */
+            background-color: #adb5bd; /* Default grey background */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15); /* Subtle shadow for depth */
+            overflow: hidden; /* Ensure content stays within bounds */
+        }
+
+        /* App Name Label Styling */
+        .app-name {
+            font-size: 13px;
+            line-height: 1.4;
+            /* Allow word wrapping for longer names */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            width: 75px; /* Max width for the label to prevent overflow */
+            color: #495057; /* Slightly lighter text color for name */
+        }
+
+        /* ----- Specific Icon Colors & Initials ----- */
+        /* Social Media */
+        .icon-linkedin { background-color: #0A66C2; }
+        .icon-facebook { background-color: #1877F2; }
+        .icon-instagram { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%); }
+        .icon-reddit { background-color: #FF4500; }
+        .icon-threads { background-color: #000000; }
+        .icon-x { background-color: #000000; }
+
+        /* AI Platforms */
+        .icon-gemini { background: linear-gradient(135deg, #4285F4, #9B72CB, #D96570, #F2A60F); }
+        .icon-aistudio { background-color: #1a73e8; } /* Google Blue */
+        .icon-grok { background-color: #1DA1F2; } /* Using Twitter Blue for association */
+        .icon-claude { background-color: #AE8FDB; } /* Approximate Anthropic purple */
+        .icon-chatgpt { background-color: #75A99F; } /* Approximate OpenAI teal */
+        .icon-deepseek { background-color: #19C37D; } /* Approximate DeepSeek green */
+        .icon-copilot { background: linear-gradient(135deg, #00A1F1, #6F42C1); } /* Approximate MS Copilot gradient */
+        .icon-lechat { background-color: #FD650B; } /* Approximate Mistral orange */
+
+
+        /* ----- Responsive Adjustments ----- */
+        @media (max-width: 480px) {
+            .app-drawer {
+                padding: 20px 10px;
+            }
+            .grid-container {
+                gap: 20px 10px; /* Reduce gap on smaller screens */
+            }
+            .icon-placeholder {
+                width: 56px; /* Slightly smaller icons */
+                height: 56px;
+                font-size: 22px;
+                border-radius: 14px;
+            }
+            .app-name {
+                font-size: 12px;
+                width: 65px; /* Adjust label width */
+            }
+        }
+
+         @media (max-width: 360px) {
+             .app-drawer {
+                 padding: 15px 5px;
+             }
+             .grid-container {
+                 gap: 18px 8px;
+             }
+            .icon-placeholder {
+                width: 50px; /* Even smaller icons */
+                height: 50px;
+                font-size: 20px;
+                border-radius: 12px;
+            }
+            .app-name {
+                font-size: 11px;
+                width: 60px;
+            }
+         }
+
+    </style>
+</head>
+<body>
+
+    <main class="app-drawer">
+        <div class="grid-container">
+
+            <div class="app-item">
+                <a href="https://www.linkedin.com/" target="_self">
+                    <div class="icon-placeholder icon-linkedin">Li</div>
+                    <span class="app-name">LinkedIn</span>
+                </a>
+            </div>
+            <div class="app-item">
+                <a href="https://www.facebook.com/" target="_self">
+                    <div class="icon-placeholder icon-facebook">Fb</div>
+                    <span class="app-name">Facebook</span>
+                </a>
+            </div>
+            <div class="app-item">
+                <a href="https://www.instagram.com/" target="_self">
+                    <div class="icon-placeholder icon-instagram">Ig</div>
+                    <span class="app-name">Instagram</span>
+                </a>
+            </div>
+            <div class="app-item">
+                <a href="https://www.reddit.com/" target="_self">
+                    <div class="icon-placeholder icon-reddit">Re</div>
+                    <span class="app-name">Reddit</span>
+                </a>
+            </div>
+
+            <div class="app-item">
+                <a href="https://www.threads.net/" target="_self">
+                    <div class="icon-placeholder icon-threads">Th</div>
+                    <span class="app-name">Threads</span>
+                </a>
+            </div>
+            <div class="app-item">
+                <a href="https://x.com/" target="_self">
+                    <div class="icon-placeholder icon-x">X</div>
+                    <span class="app-name">X</span>
+                </a>
+            </div>
+            <div class="app-item">
+                <a href="https://gemini.google.com/" target="_self">
+                    <div class="icon-placeholder icon-gemini">Ge</div>
+                    <span class="app-name">Gemini</span>
+                </a>
+            </div>
+            <div class="app-item">
+                <a href="https://aistudio.google.com/" target="_self">
+                    <div class="icon-placeholder icon-aistudio">AI</div>
+                    <span class="app-name">AI Studio</span>
+                </a>
+            </div>
+
+            <div class="app-item">
+                <a href="https://grok.x.ai/" target="_self">
+                     <div class="icon-placeholder icon-grok">Gr</div>
+                     <span class="app-name">Grok</span>
+                </a>
+            </div>
+             <div class="app-item">
+                <a href="https://claude.ai/" target="_self">
+                     <div class="icon-placeholder icon-claude">Cl</div>
+                     <span class="app-name">Claude</span>
+                </a>
+            </div>
+            <div class="app-item">
+                <a href="https://chat.openai.com/" target="_self">
+                    <div class="icon-placeholder icon-chatgpt">GPT</div>
+                    <span class="app-name">ChatGPT</span>
+                </a>
+            </div>
+            <div class="app-item">
+                <a href="https://chat.deepseek.com/" target="_self">
+                    <div class="icon-placeholder icon-deepseek">DS</div>
+                    <span class="app-name">DeepSeek</span>
+                </a>
+            </div>
+
+            <div class="app-item">
+                <a href="https://copilot.microsoft.com/" target="_self">
+                     <div class="icon-placeholder icon-copilot">Co</div>
+                     <span class="app-name">Copilot</span>
+                </a>
+            </div>
+             <div class="app-item">
+                <a href="https://chat.mistral.ai/" target="_self">
+                    <div class="icon-placeholder icon-lechat">LC</div>
+                    <span class="app-name">Le Chat</span>
+                </a>
+            </div>
+
+            </div>
+    </main>
+
+</body>
+</html>
